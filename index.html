@@ -46,6 +46,62 @@
         overflow-x: hidden;
       }
 
+      /* --- AUTHENTICATION OVERLAY --- */
+      #auth-overlay {
+        position: fixed;
+        inset: 0;
+        background: var(--odoo-purple);
+        z-index: 99999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        transition: opacity 0.5s ease;
+      }
+      .auth-card {
+        background: white;
+        padding: 40px;
+        border-radius: 12px;
+        width: 100%;
+        max-width: 400px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        text-align: center;
+      }
+      .auth-logo {
+        width: 64px;
+        height: 64px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      }
+      .auth-title { font-weight: 800; color: var(--odoo-purple); font-size: 22px; margin-bottom: 8px; }
+      .auth-subtitle { color: var(--text-muted); font-size: 13px; margin-bottom: 30px; font-weight: 500; }
+      .auth-input {
+        width: 100%;
+        padding: 15px;
+        border: 2px solid #eee;
+        border-radius: 8px;
+        font-size: 16px;
+        margin-bottom: 20px;
+        text-align: center;
+        letter-spacing: 2px;
+        transition: border-color 0.2s;
+      }
+      .auth-input:focus { border-color: var(--odoo-purple); }
+      .auth-btn {
+        width: 100%;
+        padding: 15px;
+        background: var(--odoo-purple);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 800;
+        cursor: pointer;
+        transition: var(--transition);
+        text-transform: uppercase;
+      }
+      .auth-btn:hover { background: var(--odoo-purple-dark); transform: translateY(-2px); }
+
       /* --- NAVBAR & FIXED NAVIGATION --- */
       .navbar {
         background-color: var(--odoo-purple);
@@ -419,8 +475,19 @@
   </head>
   <body>
 
+    <!-- 0. AUTHORIZED LOGIN OVERLAY -->
+    <div id="auth-overlay">
+      <div class="auth-card">
+        <img src="https://media.licdn.com/dms/image/v2/D560BAQEPjP3aKt0lyg/company-logo_100_100/B56ZU2_QxhHEAU-/0/1740384308771/hiregrow_consultants_logo?e=1772064000&v=beta&t=jyFG8nOobovTGg8CXl__cBH3jpSI8NaWLLBb1kKivvw" class="auth-logo">
+        <div class="auth-title">RaveOne Master</div>
+        <div class="auth-subtitle">Authorized Executive Workspace Access</div>
+        <input type="password" id="auth-pass" class="auth-input" placeholder="ENTER ACCESS PIN" onkeydown="if(event.key === 'Enter') handleAuth()">
+        <button class="auth-btn" onclick="handleAuth()">SECURE LOGIN</button>
+      </div>
+    </div>
+
     <!-- OVERLAY: INITIALIZATION -->
-    <div id="loading" class="loading-overlay">
+    <div id="loading" class="loading-overlay" style="display:none;">
       <div class="spinner"></div>
       <div style="font-weight: 800; letter-spacing: 5px; font-size: 12px; text-transform: uppercase;">Initializing RaveOne ERP</div>
     </div>
@@ -511,16 +578,37 @@
           <div class="icon-box bg-white"><img src="https://upload.wikimedia.org/wikipedia/commons/1/12/Google_Drive_icon_%282020%29.svg" alt="Drive"></div>
           <span class="icon-label">Drive</span>
         </a>
+        <!-- FIXED: Using Inline SVG for Google Keep -->
         <a href="https://keep.google.com/u/0/?authuser=rajesh@raveone.in" target="_blank" class="app-icon">
-          <div class="icon-box bg-white"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/Google_Keep_icon_%282020%29.svg" alt="Keep"></div>
+          <div class="icon-box bg-white">
+            <svg viewBox="0 0 48 48" width="32" height="32">
+              <path fill="#FFBB00" d="M34,42H14c-1.1,0-2-0.9-2-2V8c0-1.1,0.9-2,2-2h20c1.1,0,2,0.9,2,2v32C36,41.1,35.1,42,34,42z"/>
+              <path fill="#FFF" d="M24,12c-4.4,0-8,3.6-8,8c0,2.5,1.2,4.8,3,6.2V32c0,0.6,0.4,1,1,1h8c0.6,0,1-0.4,1-1v-5.8c1.8-1.4,3-3.7,3-6.2 C32,15.6,28.4,12,24,12z"/>
+              <path fill="#FFBB00" d="M20,34h8v2h-8V34z M21,37h6v2h-6V37z"/>
+            </svg>
+          </div>
           <span class="icon-label">Keep</span>
         </a>
+        <!-- FIXED: Using Inline SVG for Google Classroom -->
         <a href="https://classroom.google.com/u/0/?authuser=rajesh@raveone.in" target="_blank" class="app-icon">
-          <div class="icon-box bg-white"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Google_Classroom_Logo.svg" alt="Classroom"></div>
+          <div class="icon-box bg-white">
+            <svg viewBox="0 0 48 48" width="32" height="32">
+              <path fill="#2E7D32" d="M42,38c0,2.2-1.8,4-4,4H10c-2.2,0-4-1.8-4-4V10c0-2.2,1.8-4,4-4h28c2.2,0,4,1.8,4,4V38z"/>
+              <path fill="#FFF" d="M12,18h24v4H12V18z M12,26h24v4H12V26z M12,34h16v4H12V34z"/>
+              <circle fill="#FBC02D" cx="24" cy="18" r="4"/>
+            </svg>
+          </div>
           <span class="icon-label">Class</span>
         </a>
+        <!-- FIXED: Using Inline SVG for Google Admin -->
         <a href="https://admin.google.com/u/0/?authuser=rajesh@raveone.in" target="_blank" class="app-icon">
-          <div class="icon-box bg-white"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/Google_Admin_Logo.svg" alt="Admin"></div>
+          <div class="icon-box bg-white">
+            <svg viewBox="0 0 48 48" width="32" height="32">
+              <path fill="#1976D2" d="M24,4c-11,0-20,9-20,20s9,20,20,20s20-9,20-20S35,4,24,4z M24,36c-6.6,0-12-5.4-12-12s5.4-12,12-12s12,5.4,12,12 S30.6,36,24,36z"/>
+              <path fill="#1976D2" d="M24,16c-4.4,0-8,3.6-8,8s3.6,8,8,8s8-3.6,8-8S28.4,16,24,16z"/>
+              <path fill="#FFF" d="M24,20c-2.2,0-4,1.8-4,4s1.8,4,4,4s4-1.8,4-4S26.2,20,24,20z"/>
+            </svg>
+          </div>
           <span class="icon-label">Admin</span>
         </a>
       </div>
@@ -681,13 +769,26 @@
           <div class="card-header"><h2>System Core Configuration</h2></div>
           <div class="card-body" style="padding:30px;">
             <div style="margin-bottom: 25px;">
+              <label style="font-size:12px; font-weight:800; color:var(--text-muted); display:block; margin-bottom:10px;">WORKSPACE USERNAME (GREETING NAME)</label>
+              <input type="text" id="set-name" class="input-std" placeholder="e.g. Dr. Rajesh" style="border: 1.5px solid #ddd; margin-bottom: 20px;">
+              
               <label style="font-size:12px; font-weight:800; color:var(--text-muted); display:block; margin-bottom:10px;">GOOGLE APPS SCRIPT DEPLOYMENT URL</label>
               <input type="text" id="set-url" class="input-std" placeholder="Paste your /exec URL here to enable cloud sync..." style="border: 1.5px solid #ddd;">
             </div>
+            
+            <div class="odoo-card" style="background:#f8f9fa; margin-bottom:20px; border-style:dashed;">
+              <div class="card-body" style="padding:15px; font-size:12px;">
+                <b style="color:var(--odoo-purple)">SYSTEM STATUS:</b><br>
+                <span id="status-auth">● AUTHORIZED</span> | 
+                <span id="status-sync">● IDLE</span> | 
+                <span>ENV: PRODUCTION v5.8</span>
+              </div>
+            </div>
+
             <div style="display:flex; gap:15px; align-items:center;">
               <span style="font-size:13px; font-weight:600;">Active Account: <span style="color:var(--odoo-teal)">rajesh@raveone.in</span></span>
               <button class="btn-header btn-sync" style="margin-left:auto;" onclick="saveConfig()">SAVE CONFIG</button>
-              <button class="btn-header" style="background:#eee;" onclick="localStorage.clear(); location.reload();">RESET WORKSPACE</button>
+              <button class="btn-header" style="background:#fceaea; color:var(--danger); border:1px solid #fad2d2;" onclick="localStorage.clear(); location.reload();">HARD RESET WORKSPACE</button>
             </div>
           </div>
         </div>
@@ -701,9 +802,36 @@
 
     <script>
       /**
+       * AUTHORIZATION ENGINE
+       */
+      const AUTH_KEY = "RAVEONE_AUTH_STATUS";
+      const AUTH_CODE = "RAVE2025"; 
+
+      function handleAuth() {
+        const input = document.getElementById('auth-pass').value;
+        if (input === AUTH_CODE) {
+          localStorage.setItem(AUTH_KEY, "true");
+          revealWorkspace();
+        } else {
+          alert("Unauthorized PIN. Access Denied.");
+          document.getElementById('auth-pass').value = "";
+        }
+      }
+
+      function revealWorkspace() {
+        const overlay = document.getElementById('auth-overlay');
+        overlay.style.opacity = "0";
+        setTimeout(() => {
+          overlay.style.display = "none";
+          initDashboard();
+        }, 500);
+      }
+
+      /**
        * CORE ERP ENGINE
        */
       let SCRIPT_URL = localStorage.getItem('RAVEONE_URL') || "https://script.google.com/macros/s/AKfycbzlaDron_2EjJOhzK_4v2auFZfjhf6WbU98W_UCGSq8GJmFXYBnbsKCSrAJgDWjYgMj8A/exec";
+      let USER_NAME = localStorage.getItem('RAVEONE_USER_NAME') || "Dr. Rajesh";
       let tallies = { coffee: 0, smoke: 0 };
       let pomoTime = 25 * 60;
       let pomoInterval;
@@ -711,7 +839,14 @@
       let isFocus = false;
 
       window.onload = () => {
-        // Clear loader with transition
+        if (localStorage.getItem(AUTH_KEY) === "true") {
+          document.getElementById('auth-overlay').style.display = "none";
+          initDashboard();
+        }
+      };
+
+      function initDashboard() {
+        document.getElementById('loading').style.display = "flex";
         setTimeout(() => { 
           const loader = document.getElementById('loading');
           if(loader) {
@@ -720,46 +855,37 @@
           }
         }, 800);
         
-        // Populate settings input
         const urlInput = document.getElementById('set-url');
-        if(urlInput) urlInput.value = SCRIPT_URL.includes("YOUR_ACTUAL") ? "" : SCRIPT_URL;
+        const nameInput = document.getElementById('set-name');
+        if(urlInput) urlInput.value = SCRIPT_URL.includes("AKfy") ? SCRIPT_URL : "";
+        if(nameInput) nameInput.value = USER_NAME;
         
         try {
           syncAll();
           updateGreeting();
         } catch(e) { console.error("Handshake failed:", e); }
-      };
+      }
 
-      /**
-       * ERP ROUTING ENGINE (FIXED)
-       */
       function switchView(id, el) {
-        // Deactivate all sections
         document.querySelectorAll('.view-section').forEach(v => {
           v.classList.remove('active');
           v.style.display = 'none';
         });
-
-        // Activate selected section
         const target = document.getElementById('view-' + id);
         if(target) {
           target.classList.add('active');
           target.style.display = 'grid';
         }
-        
-        // Update Nav Menu UI
         if(el) {
           document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
           el.classList.add('active');
         } else {
-          // Find matching link if called programmatically
           const link = document.querySelector(`.nav-link[data-target="${id}"]`);
           if(link) {
              document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
              link.classList.add('active');
           }
         }
-        
         window.scrollTo(0, 0);
       }
 
@@ -814,11 +940,14 @@
       async function syncAll() {
         const taskTable = document.getElementById('task-table');
         const jobTable = document.getElementById('job-table');
+        const syncStatus = document.getElementById('status-sync');
 
-        if (SCRIPT_URL.includes("YOUR_ACTUAL")) {
+        if (!SCRIPT_URL || SCRIPT_URL === "") {
           taskTable.innerHTML = '<tr class="data-row"><td class="data-cell">⚠️ Deployment URL missing. Set in CONFIG.</td></tr>';
           return;
         }
+
+        if(syncStatus) syncStatus.innerText = "● SYNCING...";
 
         try {
           const resp = await fetch(`${SCRIPT_URL}?action=getIntegratedData`);
@@ -850,9 +979,11 @@
           } else {
             jobTable.innerHTML = '<tr class="data-row"><td class="data-cell">No mandates found in ATS pipeline.</td></tr>';
           }
+          if(syncStatus) syncStatus.innerText = "● LIVE";
         } catch (e) {
           console.error(e);
           taskTable.innerHTML = '<tr class="data-row"><td class="data-cell">❌ Connectivity issue. Verify URL.</td></tr>';
+          if(syncStatus) syncStatus.innerText = "● ERROR";
         }
       }
 
@@ -894,14 +1025,20 @@
         fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({type: 'phone_call', content: n}) });
       }
 
-      function saveConfig() { localStorage.setItem('RAVEONE_URL', document.getElementById('set-url').value); location.reload(); }
+      function saveConfig() { 
+        localStorage.setItem('RAVEONE_URL', document.getElementById('set-url').value); 
+        localStorage.setItem('RAVEONE_USER_NAME', document.getElementById('set-name').value);
+        location.reload(); 
+      }
 
       function updateGreeting() {
         const hour = new Date().getHours();
         const g = document.getElementById('greeting');
-        if(hour < 12) g.innerText = "Good Morning, Dr. Rajesh";
-        else if(hour < 17) g.innerText = "Good Afternoon, Dr. Rajesh";
-        else g.innerText = "Good Evening, Dr. Rajesh";
+        let prefix = "Good Evening";
+        if(hour < 12) prefix = "Good Morning";
+        else if(hour < 17) prefix = "Good Afternoon";
+        
+        g.innerText = `${prefix}, ${USER_NAME}`;
       }
 
       window.addEventListener('keydown', (e) => {
