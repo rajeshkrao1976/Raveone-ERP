@@ -4,16 +4,10 @@
     <meta charset="UTF-8">
     <title>RaveOne ERP | Master Executive Workspace</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <!-- 
-      ENTERPRISE TYPOGRAPHY 
-      Inter: Optimized for high-density UI and long reading sessions.
-      JetBrains Mono: Used for financial metrics and data-heavy tables.
-    -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     
     <style>
       :root {
-        /* Odoo-Inspired Sophisticated Palette */
         --odoo-purple: #714B67;
         --odoo-purple-dark: #5d3d55;
         --odoo-teal: #00A09D;
@@ -26,8 +20,6 @@
         --warning: #ffc107;
         --danger: #dc3545;
         --white: #ffffff;
-        --li-blue: #0077b5;
-        --gmail-red: #ea4335;
         --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
         --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
         --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -46,436 +38,127 @@
         overflow-x: hidden;
       }
 
-      /* --- AUTHENTICATION OVERLAY --- */
       #auth-overlay {
-        position: fixed;
-        inset: 0;
+        position: fixed; inset: 0;
         background: var(--odoo-purple);
         z-index: 99999;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-        transition: opacity 0.5s ease;
+        display: flex; align-items: center; justify-content: center;
+        padding: 20px; transition: opacity 0.5s ease;
       }
       .auth-card {
-        background: white;
-        padding: 40px;
-        border-radius: 12px;
-        width: 100%;
-        max-width: 400px;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-        text-align: center;
+        background: white; padding: 40px; border-radius: 12px;
+        width: 100%; max-width: 400px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.3); text-align: center;
       }
-      .auth-logo {
-        width: 64px;
-        height: 64px;
-        border-radius: 12px;
-        margin-bottom: 20px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      }
+      .auth-logo { width: 64px; height: 64px; border-radius: 12px; margin-bottom: 20px; }
       .auth-title { font-weight: 800; color: var(--odoo-purple); font-size: 22px; margin-bottom: 8px; }
       .auth-subtitle { color: var(--text-muted); font-size: 13px; margin-bottom: 30px; font-weight: 500; }
-      .auth-input {
-        width: 100%;
-        padding: 15px;
-        border: 2px solid #eee;
-        border-radius: 8px;
-        font-size: 16px;
-        margin-bottom: 20px;
-        text-align: center;
-        letter-spacing: 2px;
-        transition: border-color 0.2s;
-      }
-      .auth-input:focus { border-color: var(--odoo-purple); }
-      .auth-btn {
-        width: 100%;
-        padding: 15px;
-        background: var(--odoo-purple);
-        color: white;
-        border: none;
-        border-radius: 8px;
-        font-weight: 800;
-        cursor: pointer;
-        transition: var(--transition);
-        text-transform: uppercase;
-      }
-      .auth-btn:hover { background: var(--odoo-purple-dark); transform: translateY(-2px); }
+      .auth-input { width: 100%; padding: 15px; border: 2px solid #eee; border-radius: 8px; font-size: 16px; margin-bottom: 20px; text-align: center; letter-spacing: 2px; }
+      .auth-btn { width: 100%; padding: 15px; background: var(--odoo-purple); color: white; border: none; border-radius: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; }
 
-      /* --- NAVBAR & FIXED NAVIGATION --- */
       .navbar {
         background-color: var(--odoo-purple);
         color: white;
         height: 52px;
-        display: flex;
-        align-items: center;
-        padding: 0 20px;
-        position: sticky;
-        top: 0;
-        z-index: 2000;
+        display: flex; align-items: center; padding: 0 20px;
+        position: sticky; top: 0; z-index: 2000;
         box-shadow: 0 2px 15px rgba(0,0,0,0.15);
       }
 
-      .navbar-brand { 
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        font-weight: 800; 
-        font-size: 18px; 
-        margin-right: 30px; 
-        cursor: pointer; 
-        color: white;
-        text-decoration: none;
-      }
-      .navbar-logo {
-        height: 32px;
-        width: 32px;
-        border-radius: 4px;
-        object-fit: cover;
-        box-shadow: 0 0 0 2px rgba(255,255,255,0.2);
-      }
+      .navbar-brand { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 18px; cursor: pointer; color: white; text-decoration: none; }
+      .navbar-logo { height: 32px; width: 32px; border-radius: 4px; object-fit: cover; }
 
-      .navbar-menu { display: flex; gap: 10px; font-size: 13px; font-weight: 700; }
-      .nav-link { 
-        color: rgba(255,255,255,0.7); 
-        text-decoration: none; 
-        padding: 8px 14px; 
-        border-radius: 4px; 
-        cursor: pointer; 
-        transition: var(--transition);
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-      }
+      .navbar-menu { display: flex; gap: 10px; font-size: 13px; font-weight: 700; margin-left: 20px; }
+      .nav-link { color: rgba(255,255,255,0.7); text-decoration: none; padding: 8px 14px; border-radius: 4px; cursor: pointer; transition: var(--transition); text-transform: uppercase; }
       .nav-link:hover { color: white; background: rgba(255,255,255,0.1); }
       .nav-link.active { background: rgba(255,255,255,0.25); color: white; }
 
-      /* Pomodoro Timer HUD */
       .pomo-container {
         margin-left: 25px;
-        background: rgba(0,0,0,0.3);
-        padding: 5px 15px;
-        border-radius: 25px;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 13px;
-        display: flex;
-        align-items: center;
-        gap: 12px;
+        background: rgba(0,0,0,0.3); padding: 5px 15px;
+        border-radius: 25px; font-family: 'JetBrains Mono', monospace;
+        font-size: 13px; display: flex; align-items: center; gap: 12px;
         border: 1px solid rgba(255,255,255,0.15);
       }
       .pomo-btn { cursor: pointer; opacity: 0.85; transition: var(--transition); font-size: 16px; }
-      .pomo-btn:hover { opacity: 1; transform: scale(1.15); }
 
       .header-actions { margin-left: auto; display: flex; align-items: center; gap: 12px; }
-      .btn-header { 
-        border: none; 
-        padding: 8px 18px; 
-        font-size: 11px; 
-        font-weight: 800; 
-        border-radius: 5px; 
-        cursor: pointer; 
-        transition: var(--transition);
-        box-shadow: var(--shadow-sm);
-        text-transform: uppercase;
-      }
+      .btn-header { border: none; padding: 8px 18px; font-size: 11px; font-weight: 800; border-radius: 5px; cursor: pointer; transition: var(--transition); text-transform: uppercase; }
       .btn-sync { background-color: var(--odoo-teal); color: white; }
-      .btn-sync:hover { filter: brightness(1.1); transform: translateY(-1px); }
-      
-      .btn-focus { 
-        background: transparent; 
-        color: white; 
-        border: 1.5px solid rgba(255,255,255,0.4); 
-      }
+      .btn-focus { background: transparent; color: white; border: 1.5px solid rgba(255,255,255,0.4); }
       .btn-focus.active { background: white; color: var(--odoo-purple); border-color: white; }
 
-      /* --- MOMENTUM HERO SECTION --- */
       .momentum-banner {
         background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1600&q=80');
-        background-size: cover;
-        background-position: center;
-        color: white;
-        padding: 80px 40px;
-        text-align: center;
-        border-bottom: 1px solid var(--border-color);
-        position: relative;
-        transition: var(--transition);
+        background-size: cover; background-position: center; color: white;
+        padding: 80px 40px; text-align: center; border-bottom: 1px solid var(--border-color);
       }
-      .momentum-banner h1 { 
-        margin: 0; 
-        font-size: 42px; 
-        font-weight: 800; 
-        letter-spacing: -1.5px; 
-        text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-      }
-      .momentum-banner p { 
-        margin: 15px auto 0; 
-        font-size: 18px; 
-        max-width: 700px;
-        opacity: 0.95; 
-        font-style: italic; 
-        font-weight: 300; 
-      }
+      .momentum-banner h1 { margin: 0; font-size: 42px; font-weight: 800; letter-spacing: -1.5px; }
+      .momentum-banner p { margin: 15px auto 0; font-size: 18px; max-width: 700px; opacity: 0.95; font-style: italic; }
 
-      /* --- INTEGRATED APP DRAWER --- */
-      .app-drawer {
-        background: #fff;
-        border-bottom: 1px solid var(--border-color);
-        padding: 25px 20px;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        align-items: center;
-        transition: var(--transition);
-      }
-      .drawer-row { 
-        display: flex; 
-        justify-content: center; 
-        gap: 20px; 
-        flex-wrap: wrap; 
-        width: 100%; 
-        max-width: 1300px; 
-      }
-      .app-icon { 
-        display: flex; 
-        flex-direction: column; 
-        align-items: center; 
-        text-decoration: none; 
-        color: var(--text-dark); 
-        width: 75px; 
-        margin-bottom: 8px; 
-        transition: var(--transition); 
-      }
+      .app-drawer { background: #fff; border-bottom: 1px solid var(--border-color); padding: 25px 20px; display: flex; flex-direction: column; gap: 20px; align-items: center; }
+      .drawer-row { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; width: 100%; max-width: 1300px; }
+      .app-icon { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--text-dark); width: 75px; transition: var(--transition); margin-bottom: 8px; }
       .app-icon:hover { transform: translateY(-5px); }
-      .icon-box { 
-        width: 48px; 
-        height: 48px; 
-        border-radius: 12px; 
-        display: flex; 
-        align-items: center; 
-        justify-content: center; 
-        margin-bottom: 8px; 
-        color: white; 
-        font-weight: 800;
-        font-size: 18px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
-        transition: var(--transition);
-        overflow: hidden;
-      }
-      .icon-box img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        padding: 4px;
-      }
-      .icon-box.bg-white { background-color: #ffffff; border: 1px solid #f0f0f0; }
+      .icon-box { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; color: white; font-weight: 800; box-shadow: 0 4px 8px rgba(0,0,0,0.1); overflow: hidden; }
+      .icon-box img { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
+      .icon-label { font-size: 10px; font-weight: 800; text-transform: uppercase; text-align: center; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; }
 
-      .icon-label { 
-        font-size: 10px; 
-        font-weight: 800; 
-        text-transform: uppercase; 
-        text-align: center; 
-        width: 100%; 
-        white-space: nowrap; 
-        overflow: hidden; 
-        text-overflow: ellipsis; 
-        color: var(--text-muted);
-      }
-
-      /* App Category Visual Styles */
       .bg-crm { background: linear-gradient(135deg, #00A09D, #007c7a); }
       .bg-fin { background: linear-gradient(135deg, #875A7B, #714b67); }
       .bg-ats { background: linear-gradient(135deg, #E97C2E, #c6621b); }
       .bg-aca { background: linear-gradient(135deg, #21B799, #1a8e77); }
-      .bg-white { background: #ffffff; }
+      .bg-white { background: #ffffff; border: 1px solid #eee; }
 
-      /* --- BACKEND DB NAV --- */
-      .backend-nav {
-        display: flex;
-        gap: 12px;
-        padding: 12px 20px;
-        background: #f8f9fa;
-        border-bottom: 1px solid var(--border-color);
-        justify-content: center;
-        flex-wrap: wrap;
-        position: sticky;
-        top: 52px;
-        z-index: 1000;
-        transition: var(--transition);
-      }
-      .db-link {
-        font-size: 11px;
-        font-weight: 800;
-        color: #1d8045;
-        text-decoration: none;
-        padding: 6px 18px;
-        background: #fff;
-        border: 1.5px solid #c3e6cb;
-        border-radius: 25px;
-        transition: var(--transition);
-        display: flex;
-        align-items: center;
-        gap: 6px;
-      }
-      .db-link:hover { background: #e6ffed; border-color: #1d8045; transform: scale(1.03); }
+      .backend-nav { display: flex; gap: 12px; padding: 12px 20px; background: #f8f9fa; border-bottom: 1px solid var(--border-color); justify-content: center; flex-wrap: wrap; position: sticky; top: 52px; z-index: 1000; }
+      .db-link { font-size: 11px; font-weight: 800; color: #1d8045; text-decoration: none; padding: 6px 18px; background: #fff; border: 1.5px solid #c3e6cb; border-radius: 25px; transition: var(--transition); }
+      .db-link:hover { border-color: #1d8045; transform: scale(1.03); }
 
-      /* --- WORKSPACE GRID SYSTEM --- */
       .workspace-padding { padding: 30px; flex: 1; }
-      .workspace-grid {
-        display: grid;
-        grid-template-columns: repeat(12, 1fr);
-        gap: 20px;
-        max-width: 1400px;
-        margin: 0 auto;
-      }
+      .workspace-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; max-width: 1400px; margin: 0 auto; }
 
-      .odoo-card {
-        background: var(--bg-card);
-        border: 1px solid var(--border-color);
-        border-radius: 8px;
-        display: flex;
-        flex-direction: column;
-        box-shadow: var(--shadow-sm);
-        height: fit-content;
-        transition: var(--transition);
-      }
-      .odoo-card:hover { box-shadow: var(--shadow-md); }
-
-      .card-header {
-        padding: 12px 20px;
-        background: #f8f9fa;
-        border-bottom: 1px solid var(--border-color);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      .card-header h2 { 
-        font-size: 13px; 
-        font-weight: 800; 
-        margin: 0; 
-        text-transform: uppercase; 
-        color: var(--text-muted); 
-        letter-spacing: 0.8px; 
-      }
-
+      .odoo-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; display: flex; flex-direction: column; box-shadow: var(--shadow-sm); height: fit-content; }
+      .card-header { padding: 12px 20px; background: #f8f9fa; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+      .card-header h2 { font-size: 13px; font-weight: 800; margin: 0; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.8px; }
       .card-body { padding: 20px; }
 
-      /* Visual Column Logic */
-      .col-12 { grid-column: span 12; } 
-      .col-8 { grid-column: span 8; } 
-      .col-4 { grid-column: span 4; } 
-      .col-6 { grid-column: span 6; }
+      .col-12 { grid-column: span 12; } .col-8 { grid-column: span 8; } .col-4 { grid-column: span 4; } .col-6 { grid-column: span 6; }
       @media (max-width: 1024px) { .col-8, .col-4, .col-6 { grid-column: span 12; } }
 
-      /* Data Component Styles */
       .data-table { width: 100%; border-collapse: collapse; font-size: 14px; }
-      .data-row { border-bottom: 1px solid #f8f9fa; transition: background 0.1s; }
-      .data-row:hover { background: #fafafa; }
+      .data-row { border-bottom: 1px solid #f8f9fa; }
       .data-cell { padding: 12px 15px; }
 
-      .badge { 
-        padding: 4px 10px; 
-        border-radius: 4px; 
-        font-size: 10px; 
-        font-weight: 800; 
-        color: white; 
-        text-transform: uppercase; 
-        display: inline-block;
-      }
+      .badge { padding: 4px 10px; border-radius: 4px; font-size: 10px; font-weight: 800; color: white; text-transform: uppercase; }
+      
+      .btn-action { background: none; border: 1px solid #eee; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 10px; font-weight: 700; color: var(--text-muted); margin-left: 5px; }
+      .btn-action:hover { border-color: var(--odoo-purple); color: var(--odoo-purple); }
+      .btn-delete:hover { border-color: var(--danger); color: var(--danger); }
 
-      .tag { 
-        font-size: 10px; 
-        padding: 3px 8px; 
-        border-radius: 4px; 
-        font-weight: 800; 
-        border: 1.5px solid transparent; 
-        margin-right: 8px; 
-      }
-      .tag-fin { background: #f3e8ff; color: #7e22ce; border-color: #d8b4fe; }
-      .tag-ats { background: #ffedd5; color: #c2410c; border-color: #fdba74; }
-
-      /* Vertical Metrics Grouping */
       .metric-group { margin-bottom: 20px; }
       .metric-label { display: flex; justify-content: space-between; font-size: 12px; font-weight: 800; margin-bottom: 8px; }
       .progress-bg { height: 10px; background: #eee; border-radius: 5px; overflow: hidden; }
-      .progress-fill { height: 100%; transition: width 2s cubic-bezier(0.4, 0, 0.2, 1); border-radius: 5px; }
+      .progress-fill { height: 100%; transition: width 1s ease; }
 
-      /* Habit Suite Styling */
-      .habit-item { 
-        display: flex; 
-        justify-content: space-between; 
-        align-items: center; 
-        padding: 12px 0; 
-        border-bottom: 1px solid #f5f5f5; 
-        font-size: 14px; 
-        font-weight: 500;
-      }
-      .habit-controls { display: flex; gap: 10px; align-items: center; }
-      .btn-tally { 
-        width: 28px; 
-        height: 28px; 
-        border: 1px solid #ddd; 
-        background: white; 
-        border-radius: 6px; 
-        cursor: pointer; 
-        font-weight: bold; 
-        transition: var(--transition);
-      }
-      .btn-tally:hover { background: #f8f9fa; border-color: var(--odoo-purple); }
-      
-      .input-std { 
-        width: 100%; 
-        padding: 18px; 
-        border: 1.5px solid #eee; 
-        border-radius: 8px; 
-        font-family: inherit; 
-        font-size: 15px; 
-        outline: none; 
-        transition: border-color 0.2s;
-      }
-      .input-std:focus { border-color: var(--odoo-purple); }
+      .habit-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f5f5f5; font-size: 14px; }
+      .btn-tally { width: 28px; height: 28px; border: 1px solid #ddd; background: white; border-radius: 6px; cursor: pointer; }
 
-      .scratch-box { 
-        background: #fffdf0; 
-        border-left: 5px solid var(--warning); 
-        min-height: 120px; 
-        padding: 20px; 
-        font-size: 14px; 
-        font-family: 'JetBrains Mono', monospace; 
-        width: 100%; 
-        border-top:none; 
-        border-right:none; 
-        border-bottom:none; 
-        outline:none;
-        border-radius: 0 8px 8px 0;
-      }
+      .input-std { width: 100%; padding: 18px; border: 1.5px solid #eee; border-radius: 8px; font-size: 15px; }
+      .scratch-box { background: #fffdf0; border-left: 5px solid var(--warning); min-height: 120px; padding: 20px; font-family: 'JetBrains Mono', monospace; width: 100%; border-top:none; border-right:none; border-bottom:none; border-radius: 0 8px 8px 0; }
 
-      /* Focus Mode Engine */
       .focus-active .workspace-grid > div:not(.focus-prime) { opacity: 0.05; filter: blur(6px); pointer-events: none; }
-      .focus-active .momentum-banner, .focus-active .app-drawer, .focus-active .backend-nav { opacity: 0.1; filter: grayscale(1); }
-
-      /* Full Screen Loader */
-      .loading-overlay { 
-        position: fixed; 
-        inset: 0; 
-        background: var(--odoo-purple); 
-        z-index: 9999; 
-        display: flex; 
-        align-items: center; 
-        justify-content: center; 
-        flex-direction: column; 
-        color: white; 
-        transition: 0.8s ease; 
-      }
+      .loading-overlay { position: fixed; inset: 0; background: var(--odoo-purple); z-index: 9999; display: flex; align-items: center; justify-content: center; flex-direction: column; color: white; transition: 0.8s ease; }
       .spinner { border: 4px solid rgba(255,255,255,0.2); border-top: 4px solid white; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin-bottom: 20px; }
       @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-      /* Tab Switcher Logic */
       .view-section { display: none; }
       .view-section.active { display: grid; }
+      
+      .strikethrough { text-decoration: line-through; opacity: 0.6; }
     </style>
   </head>
   <body>
 
-    <!-- 0. AUTHORIZED LOGIN OVERLAY -->
     <div id="auth-overlay">
       <div class="auth-card">
         <img src="https://media.licdn.com/dms/image/v2/D560BAQEPjP3aKt0lyg/company-logo_100_100/B56ZU2_QxhHEAU-/0/1740384308771/hiregrow_consultants_logo?e=1772064000&v=beta&t=jyFG8nOobovTGg8CXl__cBH3jpSI8NaWLLBb1kKivvw" class="auth-logo">
@@ -486,13 +169,11 @@
       </div>
     </div>
 
-    <!-- OVERLAY: INITIALIZATION -->
     <div id="loading" class="loading-overlay" style="display:none;">
       <div class="spinner"></div>
       <div style="font-weight: 800; letter-spacing: 5px; font-size: 12px; text-transform: uppercase;">Initializing RaveOne ERP</div>
     </div>
 
-    <!-- 1. PRIMARY FIXED NAVIGATION -->
     <nav class="navbar">
       <div class="navbar-brand" onclick="switchView('dashboard', null)">
         <img src="https://media.licdn.com/dms/image/v2/D560BAQEPjP3aKt0lyg/company-logo_100_100/B56ZU2_QxhHEAU-/0/1740384308771/hiregrow_consultants_logo?e=1772064000&v=beta&t=jyFG8nOobovTGg8CXl__cBH3jpSI8NaWLLBb1kKivvw" alt="RaveOne" class="navbar-logo">
@@ -500,7 +181,6 @@
       </div>
       <div class="navbar-menu" id="main-nav">
         <a class="nav-link active" data-target="dashboard" onclick="switchView('dashboard', this)">DASHBOARD</a>
-        <a class="nav-link" data-target="activities" onclick="switchView('activities', this)">GLOBAL LOGS</a>
         <a class="nav-link" data-target="settings" onclick="switchView('settings', this)">CONFIG</a>
       </div>
 
@@ -516,16 +196,13 @@
       </div>
     </nav>
 
-    <!-- 2. STRATEGIC MOMENTUM HERO BANNER -->
     <div class="momentum-banner">
       <h1 id="greeting">Good Morning, Dr. Rajesh</h1>
       <p id="quote">"Sourcing is the foundation of every great placement. Focus on the pipeline today for the closures of tomorrow."</p>
     </div>
 
-    <!-- 3. CENTRALIZED ENTERPRISE APP DRAWER -->
     <section class="app-drawer">
       <div class="drawer-row">
-        <!-- Business Logic Verticals -->
         <a href="https://rajeshkrao1976.github.io/crm/" target="_blank" class="app-icon">
           <div class="icon-box bg-crm">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
@@ -539,25 +216,32 @@
           <span class="icon-label">Finance</span>
         </a>
         <a href="https://rajeshkrao1976.github.io/raveone-ats/" target="_blank" class="app-icon">
-          <div class="icon-box bg-ats"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+          <div class="icon-box bg-ats">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          </div>
           <span class="icon-label">Recruit</span>
         </a>
         <a href="https://rajeshkrao1976.github.io/raveone-training-academy/" target="_blank" class="app-icon">
-          <div class="icon-box bg-aca"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+          <div class="icon-box bg-aca">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          </div>
           <span class="icon-label">Academy</span>
         </a>
         <a href="https://www.linkedin.com/in/dr-rajesh-krishnamurthy-rao-18b7162/" target="_blank" class="app-icon">
-          <div class="icon-box" style="background:#0077b5;"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></div>
+          <div class="icon-box" style="background:#0077b5;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          </div>
           <span class="icon-label">Profile</span>
         </a>
         <a href="https://www.linkedin.com/company/96287812/admin/dashboard/" target="_blank" class="app-icon">
-          <div class="icon-box" style="background:#0077b5;"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14h-2v-6h2v6zm-1-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm5 7h-2v-3.5c0-1.1-.9-2-2-2s-2 .9-2 2V16h-2v-6h2v1.2c.5-.8 1.5-1.2 2.5-1.2 1.9 0 3.5 1.6 3.5 3.5V16z"/></svg></div>
+          <div class="icon-box" style="background:#0077b5;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14h-2v-6h2v6zm-1-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm5 7h-2v-3.5c0-1.1-.9-2-2-2s-2 .9-2 2V16h-2v-6h2v1.2c.5-.8 1.5-1.2 2.5-1.2 1.9 0 3.5 1.6 3.5 3.5V16z"/></svg>
+          </div>
           <span class="icon-label">Biz Page</span>
         </a>
       </div>
       
       <div class="drawer-row">
-        <!-- Google Workspace Context Suite -->
         <a href="https://mail.google.com/mail/u/0/?authuser=rajesh@raveone.in" target="_blank" class="app-icon">
           <div class="icon-box bg-white"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" alt="Gmail"></div>
           <span class="icon-label">Gmail</span>
@@ -578,43 +262,27 @@
           <div class="icon-box bg-white"><img src="https://upload.wikimedia.org/wikipedia/commons/1/12/Google_Drive_icon_%282020%29.svg" alt="Drive"></div>
           <span class="icon-label">Drive</span>
         </a>
-        <!-- FIXED: Using Inline SVG for Google Keep -->
         <a href="https://keep.google.com/u/0/?authuser=rajesh@raveone.in" target="_blank" class="app-icon">
           <div class="icon-box bg-white">
-            <svg viewBox="0 0 48 48" width="32" height="32">
-              <path fill="#FFBB00" d="M34,42H14c-1.1,0-2-0.9-2-2V8c0-1.1,0.9-2,2-2h20c1.1,0,2,0.9,2,2v32C36,41.1,35.1,42,34,42z"/>
-              <path fill="#FFF" d="M24,12c-4.4,0-8,3.6-8,8c0,2.5,1.2,4.8,3,6.2V32c0,0.6,0.4,1,1,1h8c0.6,0,1-0.4,1-1v-5.8c1.8-1.4,3-3.7,3-6.2 C32,15.6,28.4,12,24,12z"/>
-              <path fill="#FFBB00" d="M20,34h8v2h-8V34z M21,37h6v2h-6V37z"/>
-            </svg>
+            <svg viewBox="0 0 48 48" width="32" height="32"><path fill="#FFBB00" d="M34,42H14c-1.1,0-2-0.9-2-2V8c0-1.1,0.9-2,2-2h20c1.1,0,2,0.9,2,2v32C36,41.1,35.1,42,34,42z"/><path fill="#FFF" d="M24,12c-4.4,0-8,3.6-8,8c0,2.5,1.2,4.8,3,6.2V32c0,0.6,0.4,1,1,1h8c0.6,0,1-0.4,1-1v-5.8c1.8-1.4,3-3.7,3-6.2 C32,15.6,28.4,12,24,12z"/><path fill="#FFBB00" d="M20,34h8v2h-8V34z M21,37h6v2h-6V37z"/></svg>
           </div>
           <span class="icon-label">Keep</span>
         </a>
-        <!-- FIXED: Using Inline SVG for Google Classroom -->
         <a href="https://classroom.google.com/u/0/?authuser=rajesh@raveone.in" target="_blank" class="app-icon">
           <div class="icon-box bg-white">
-            <svg viewBox="0 0 48 48" width="32" height="32">
-              <path fill="#2E7D32" d="M42,38c0,2.2-1.8,4-4,4H10c-2.2,0-4-1.8-4-4V10c0-2.2,1.8-4,4-4h28c2.2,0,4,1.8,4,4V38z"/>
-              <path fill="#FFF" d="M12,18h24v4H12V18z M12,26h24v4H12V26z M12,34h16v4H12V34z"/>
-              <circle fill="#FBC02D" cx="24" cy="18" r="4"/>
-            </svg>
+            <svg viewBox="0 0 48 48" width="32" height="32"><path fill="#2E7D32" d="M42,38c0,2.2-1.8,4-4,4H10c-2.2,0-4-1.8-4-4V10c0-2.2,1.8-4,4-4h28c2.2,0,4,1.8,4,4V38z"/><path fill="#FFF" d="M12,18h24v4H12V18z M12,26h24v4H12V26z M12,34h16v4H12V34z"/><circle fill="#FBC02D" cx="24" cy="18" r="4"/></svg>
           </div>
           <span class="icon-label">Class</span>
         </a>
-        <!-- FIXED: Using Inline SVG for Google Admin -->
         <a href="https://admin.google.com/u/0/?authuser=rajesh@raveone.in" target="_blank" class="app-icon">
           <div class="icon-box bg-white">
-            <svg viewBox="0 0 48 48" width="32" height="32">
-              <path fill="#1976D2" d="M24,4c-11,0-20,9-20,20s9,20,20,20s20-9,20-20S35,4,24,4z M24,36c-6.6,0-12-5.4-12-12s5.4-12,12-12s12,5.4,12,12 S30.6,36,24,36z"/>
-              <path fill="#1976D2" d="M24,16c-4.4,0-8,3.6-8,8s3.6,8,8,8s8-3.6,8-8S28.4,16,24,16z"/>
-              <path fill="#FFF" d="M24,20c-2.2,0-4,1.8-4,4s1.8,4,4,4s4-1.8,4-4S26.2,20,24,20z"/>
-            </svg>
+            <svg viewBox="0 0 48 48" width="32" height="32"><path fill="#1976D2" d="M24,4c-11,0-20,9-20,20s9,20,20,20s20-9,20-20S35,4,24,4z M24,36c-6.6,0-12-5.4-12-12s5.4-12,12-12s12,5.4,12,12 S30.6,36,24,36z"/><path fill="#1976D2" d="M24,16c-4.4,0-8,3.6-8,8s3.6,8,8,8s8-3.6,8-8S28.4,16,24,16z"/><path fill="#FFF" d="M24,20c-2.2,0-4,1.8-4,4s1.8,4,4,4s4-1.8,4-4S26.2,20,24,20z"/></svg>
           </div>
           <span class="icon-label">Admin</span>
         </a>
       </div>
     </section>
 
-    <!-- 4. BACKEND DATABASE SHORTCUTS (STICKY SECOND-LEVEL) -->
     <div class="backend-nav">
       <a href="https://docs.google.com/spreadsheets/d/1OQ_pb7RRy-CC984h7L4OmJynwPQm1MgwgCAJ9kyo_YE/edit" target="_blank" class="db-link">📂 MASTER ACCOUNTING</a>
       <a href="https://docs.google.com/spreadsheets/d/1VTdu7j25g0h-IUm6-cjwhCB0WXWgdgToJRwr9ZC4628/edit" target="_blank" class="db-link">📑 ATS PIPELINE</a>
@@ -622,13 +290,8 @@
       <a href="https://docs.google.com/spreadsheets/d/19WCbGxTIILNVHtIvc3y3fYKfIpsOL6uObA3_roKZRNU/edit" target="_blank" class="db-link">📑 CRM REVENUE</a>
     </div>
 
-    <!-- 5. INDEPENDENT WORKSPACE LAYERS -->
     <main class="workspace-padding">
-      
-      <!-- LAYER: DASHBOARD (PRIMARY) -->
       <div id="view-dashboard" class="workspace-grid view-section active">
-        
-        <!-- Intelligent Action Board -->
         <div class="odoo-card col-8 focus-prime">
           <div class="card-header">
             <h2>Intelligent Action Board</h2>
@@ -643,7 +306,6 @@
           </div>
         </div>
 
-        <!-- Vertical Performance Metrics -->
         <div class="odoo-card col-4">
           <div class="card-header"><h2>Vertical Velocity</h2></div>
           <div class="card-body">
@@ -655,40 +317,39 @@
               <div class="metric-label"><span>RECRUITMENT CLOSURES</span><span>3 / 5 (60%)</span></div>
               <div class="progress-bg"><div class="progress-fill" style="width: 60%; background: var(--odoo-purple);"></div></div>
             </div>
-            <div class="metric-group">
-              <div class="metric-label"><span>ACADEMY ONBOARDING</span><span>45% TARGET</span></div>
-              <div class="progress-bg"><div class="progress-fill" style="width: 45%; background: var(--warning);"></div></div>
-            </div>
           </div>
         </div>
 
-        <!-- SOURCING PIPELINE FLOW (ATS DATA) -->
-        <div class="odoo-card col-6">
-          <div class="card-header"><h2>Jobs to Source Today (ATS Flow)</h2></div>
-          <div class="card-body" style="padding:0; min-height: 200px;">
-            <table class="data-table" id="job-table">
-              <tr class="data-row"><td class="data-cell">Scanning ATS pipeline for active mandates...</td></tr>
-            </table>
-          </div>
-        </div>
-
-        <!-- COMMUNICATION QUEUE -->
         <div class="odoo-card col-6">
           <div class="card-header">
-            <h2>Call Queue</h2>
-            <button class="btn-header btn-sync" onclick="addCall()" style="font-size:9px; padding: 4px 10px;">+ NEW CALL</button>
+            <h2>Jobs to Source Today</h2>
+            <button class="btn-header btn-sync" onclick="triggerAddJob()" style="font-size:9px; padding: 4px 10px;">+ NEW JOB</button>
           </div>
-          <div class="card-body" style="padding:0;">
-            <div style="max-height: 250px; overflow-y: auto;">
-              <table class="data-table" id="call-table">
-                <tr class="data-row"><td class="data-cell">📞 Sunil (Recruitment Feedback)</td></tr>
-                <tr class="data-row"><td class="data-cell">📞 Accounts Payable (GST Reconcile)</td></tr>
-              </table>
+          <div class="card-body" style="padding:0; min-height: 200px;">
+            <div id="job-input-area" style="display:none; padding:15px; background:#f8f9fa; border-bottom:1px solid #eee;">
+               <input type="text" id="new-job-title" placeholder="Job Title" class="input-std" style="padding:10px; margin-bottom:10px; font-size:12px;">
+               <input type="text" id="new-job-client" placeholder="Client" class="input-std" style="padding:10px; margin-bottom:10px; font-size:12px;">
+               <button class="btn-header btn-sync" onclick="confirmAddJob()" style="width:100%;">ADD TO PIPELINE</button>
             </div>
+            <table class="data-table" id="job-table-local"></table>
           </div>
         </div>
 
-        <!-- HABIT TRACKER SUITE -->
+        <div class="odoo-card col-6">
+          <div class="card-header">
+            <h2>Call Planning</h2>
+            <button class="btn-header btn-sync" onclick="triggerAddCall()" style="font-size:9px; padding: 4px 10px;">+ NEW CALL</button>
+          </div>
+          <div class="card-body" style="padding:0; min-height: 200px;">
+            <div id="call-input-area" style="display:none; padding:15px; background:#f8f9fa; border-bottom:1px solid #eee;">
+               <input type="text" id="new-call-name" placeholder="Contact Name" class="input-std" style="padding:10px; margin-bottom:10px; font-size:12px;">
+               <input type="text" id="new-call-purpose" placeholder="Purpose" class="input-std" style="padding:10px; margin-bottom:10px; font-size:12px;">
+               <button class="btn-header btn-sync" onclick="confirmAddCall()" style="width:100%;">ADD TO QUEUE</button>
+            </div>
+            <table class="data-table" id="call-table-local"></table>
+          </div>
+        </div>
+
         <div class="odoo-card col-4">
           <div class="card-header"><h2>Executive Discipline</h2></div>
           <div class="card-body" style="padding:10px 0;">
@@ -710,15 +371,15 @@
             </div>
             <div class="habit-item">
               <span>🙏 Sandhyavandana</span>
-              <input type="checkbox" id="check-sandhyavandana" style="transform: scale(1.3);">
+              <input type="checkbox" id="check-sandhyavandana" style="transform: scale(1.3); margin-right:15px;">
             </div>
             <div class="habit-item">
               <span>🧘 Meditate (10m)</span>
-              <input type="checkbox" id="check-meditation" style="transform: scale(1.3);">
+              <input type="checkbox" id="check-meditation" style="transform: scale(1.3); margin-right:15px;">
             </div>
             <div class="habit-item">
               <span>🚶 Walk (30m)</span>
-              <input type="checkbox" id="check-walk" style="transform: scale(1.3);">
+              <input type="checkbox" id="check-walk" style="transform: scale(1.3); margin-right:15px;">
             </div>
             <div style="padding:15px;">
               <button class="btn-header btn-sync" style="width:100%; border:none;" onclick="syncHabits()">COMMIT PROGRESS</button>
@@ -726,272 +387,145 @@
           </div>
         </div>
 
-        <!-- STRATEGIC REFLECTIONS -->
         <div class="odoo-card col-8">
           <div class="card-header">
             <h2>Strategic Diary</h2>
             <button class="btn-header btn-sync" onclick="saveDiary()" style="font-size:9px;">CAPTURE INSIGHT</button>
           </div>
-          <textarea id="diary-text" class="input-std" style="height:250px; resize:none;" placeholder="Notes on mandates, spiritual growth, or daily wins..."></textarea>
-        </div>
-
-        <!-- SCRATCHPAD -->
-        <div class="odoo-card col-12">
-          <div class="card-header"><h2>Session Scratchpad (Ephemeral)</h2></div>
-          <textarea class="scratch-box" placeholder="Quick jottings... will be cleared on refresh."></textarea>
-        </div>
-
-        <!-- VISION BOARD -->
-        <div class="odoo-card col-12" style="background: linear-gradient(135deg, #714B67, #00A09D); color:white; padding:30px; border:none; margin-bottom: 50px;">
-          <h2 style="font-size:20px; margin-bottom:15px; font-weight:800; opacity:0.9; color:white;">RAVEONE 2027 VISION</h2>
-          <div style="font-size:15px; line-height:1.8; font-weight:300;">
-            ● <b>ECOSYSTEM:</b> Fully automated Recruitment-to-Accounting Bridge.<br>
-            ● <b>ACADEMY:</b> 500+ Active students per batch with industry-leading placement rates.<br>
-            ● <b>CONSULTING:</b> Preferred strategic partner for Tier-1 Fintech and Enterprise SaaS firms.
-          </div>
+          <textarea id="diary-text" class="input-std" style="height:250px; resize:none;" placeholder="Notes on mandates..."></textarea>
         </div>
       </div>
 
-      <!-- LAYER: GLOBAL LOGS -->
-      <div id="view-activities" class="workspace-grid view-section">
-        <div class="odoo-card col-12">
-          <div class="card-header"><h2>Global Activity Audit</h2><button class="btn-header btn-sync" onclick="syncAll()">REFRESH</button></div>
-          <div class="card-body" style="padding:40px; text-align:center; color:var(--text-muted);">
-            <p>Syncing activity trail from Master DB...</p>
-            <div style="font-size:12px; font-weight:600; color:var(--odoo-teal); margin-top:10px;">● CONNECTED</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- LAYER: CONFIGURATION -->
       <div id="view-settings" class="workspace-grid view-section">
         <div class="odoo-card col-12">
           <div class="card-header"><h2>System Core Configuration</h2></div>
           <div class="card-body" style="padding:30px;">
-            <div style="margin-bottom: 25px;">
-              <label style="font-size:12px; font-weight:800; color:var(--text-muted); display:block; margin-bottom:10px;">WORKSPACE USERNAME (GREETING NAME)</label>
-              <input type="text" id="set-name" class="input-std" placeholder="e.g. Dr. Rajesh" style="border: 1.5px solid #ddd; margin-bottom: 20px;">
-              
-              <label style="font-size:12px; font-weight:800; color:var(--text-muted); display:block; margin-bottom:10px;">GOOGLE APPS SCRIPT DEPLOYMENT URL</label>
-              <input type="text" id="set-url" class="input-std" placeholder="Paste your /exec URL here to enable cloud sync..." style="border: 1.5px solid #ddd;">
-            </div>
-            
-            <div class="odoo-card" style="background:#f8f9fa; margin-bottom:20px; border-style:dashed;">
-              <div class="card-body" style="padding:15px; font-size:12px;">
-                <b style="color:var(--odoo-purple)">SYSTEM STATUS:</b><br>
-                <span id="status-auth">● AUTHORIZED</span> | 
-                <span id="status-sync">● IDLE</span> | 
-                <span>ENV: PRODUCTION v5.8</span>
-              </div>
-            </div>
-
-            <div style="display:flex; gap:15px; align-items:center;">
-              <span style="font-size:13px; font-weight:600;">Active Account: <span style="color:var(--odoo-teal)">rajesh@raveone.in</span></span>
-              <button class="btn-header btn-sync" style="margin-left:auto;" onclick="saveConfig()">SAVE CONFIG</button>
-              <button class="btn-header" style="background:#fceaea; color:var(--danger); border:1px solid #fad2d2;" onclick="localStorage.clear(); location.reload();">HARD RESET WORKSPACE</button>
-            </div>
+            <input type="text" id="set-name" class="input-std" placeholder="Username" style="margin-bottom:20px;">
+            <input type="text" id="set-url" class="input-std" placeholder="GAS URL" style="margin-bottom:20px;">
+            <button class="btn-header btn-sync" onclick="saveConfig()">SAVE CONFIG</button>
           </div>
         </div>
       </div>
     </main>
 
-    <!-- FOOTER / SHORTCUTS -->
-    <div style="position:fixed; bottom:15px; right:15px; font-size:10px; color:var(--text-muted); pointer-events:none; z-index:1000;">
-      Alt+S: Sync | Alt+F: Focus | Alt+D: Dash
-    </div>
-
     <script>
-      /**
-       * AUTHORIZATION ENGINE
-       */
       const AUTH_KEY = "RAVEONE_AUTH_STATUS";
       const AUTH_CODE = "RAVE2025"; 
+      const JOBS_KEY = "RAVEONE_LOCAL_JOBS";
+      const CALLS_KEY = "RAVEONE_LOCAL_CALLS";
+
+      let localJobs = JSON.parse(localStorage.getItem(JOBS_KEY)) || [];
+      let localCalls = JSON.parse(localStorage.getItem(CALLS_KEY)) || [];
 
       function handleAuth() {
-        const input = document.getElementById('auth-pass').value;
-        if (input === AUTH_CODE) {
+        if (document.getElementById('auth-pass').value === AUTH_CODE) {
           localStorage.setItem(AUTH_KEY, "true");
           revealWorkspace();
-        } else {
-          alert("Unauthorized PIN. Access Denied.");
-          document.getElementById('auth-pass').value = "";
-        }
+        } else { alert("Unauthorized."); }
       }
 
       function revealWorkspace() {
-        const overlay = document.getElementById('auth-overlay');
-        overlay.style.opacity = "0";
-        setTimeout(() => {
-          overlay.style.display = "none";
-          initDashboard();
-        }, 500);
+        document.getElementById('auth-overlay').style.display = "none";
+        initDashboard();
       }
 
-      /**
-       * CORE ERP ENGINE
-       */
+      // INTEGRATED DEPLOYMENT URL
       let SCRIPT_URL = localStorage.getItem('RAVEONE_URL') || "https://script.google.com/macros/s/AKfycbzlaDron_2EjJOhzK_4v2auFZfjhf6WbU98W_UCGSq8GJmFXYBnbsKCSrAJgDWjYgMj8A/exec";
       let USER_NAME = localStorage.getItem('RAVEONE_USER_NAME') || "Dr. Rajesh";
       let tallies = { coffee: 0, smoke: 0 };
-      let pomoTime = 25 * 60;
-      let pomoInterval;
-      let pomoRunning = false;
-      let isFocus = false;
+      let pomoTime = 25 * 60, pomoInterval, pomoRunning = false, isFocus = false;
 
       window.onload = () => {
-        if (localStorage.getItem(AUTH_KEY) === "true") {
-          document.getElementById('auth-overlay').style.display = "none";
-          initDashboard();
-        }
+        if (localStorage.getItem(AUTH_KEY) === "true") revealWorkspace();
       };
 
       function initDashboard() {
-        document.getElementById('loading').style.display = "flex";
-        setTimeout(() => { 
-          const loader = document.getElementById('loading');
-          if(loader) {
-            loader.style.opacity = '0';
-            setTimeout(() => loader.style.display='none', 800);
-          }
-        }, 800);
-        
-        const urlInput = document.getElementById('set-url');
-        const nameInput = document.getElementById('set-name');
-        if(urlInput) urlInput.value = SCRIPT_URL.includes("AKfy") ? SCRIPT_URL : "";
-        if(nameInput) nameInput.value = USER_NAME;
-        
-        try {
-          syncAll();
-          updateGreeting();
-        } catch(e) { console.error("Handshake failed:", e); }
+        renderJobsLocal();
+        renderCallsLocal();
+        updateGreeting();
+        syncAll();
       }
 
-      function switchView(id, el) {
-        document.querySelectorAll('.view-section').forEach(v => {
-          v.classList.remove('active');
-          v.style.display = 'none';
-        });
-        const target = document.getElementById('view-' + id);
-        if(target) {
-          target.classList.add('active');
-          target.style.display = 'grid';
-        }
-        if(el) {
-          document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
-          el.classList.add('active');
-        } else {
-          const link = document.querySelector(`.nav-link[data-target="${id}"]`);
-          if(link) {
-             document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
-             link.classList.add('active');
-          }
-        }
-        window.scrollTo(0, 0);
+      function renderJobsLocal() {
+        const table = document.getElementById('job-table-local');
+        if (!table) return;
+        table.innerHTML = localJobs.length === 0 ? '<tr><td class="data-cell" style="color:#aaa; text-align:center; padding:40px;">No jobs.</td></tr>' : 
+        localJobs.map((job, idx) => `<tr class="data-row"><td class="data-cell"><div style="display:flex; justify-content:space-between;"><div><b>${job.title}</b><br><small>${job.client}</small></div><div><button class="btn-action" onclick="deleteJob(${idx})">DEL</button></div></div></td></tr>`).join('');
       }
 
-      function toggleFocus() {
-        isFocus = !isFocus;
-        document.body.classList.toggle('focus-active', isFocus);
-        const btn = document.getElementById('focus-toggle');
-        btn.innerText = isFocus ? "FOCUS: ON" : "FOCUS MODE";
-        btn.classList.toggle('active', isFocus);
+      function triggerAddJob() {
+        const area = document.getElementById('job-input-area');
+        area.style.display = area.style.display === 'none' ? 'block' : 'none';
       }
 
-      /**
-       * POMODORO LOGIC
-       */
-      function togglePomo() {
-        if(pomoRunning) {
-          clearInterval(pomoInterval);
-          document.getElementById('pomo-start').innerText = "▶";
-        } else {
-          pomoInterval = setInterval(() => {
-            pomoTime--;
-            updatePomoDisplay();
-            if(pomoTime <= 0) { 
-              clearInterval(pomoInterval); 
-              alert("Focus session complete. Take a breather."); 
-              resetPomo(); 
-            }
-          }, 1000);
-          document.getElementById('pomo-start').innerText = "⏸";
-        }
-        pomoRunning = !pomoRunning;
+      function confirmAddJob() {
+        const title = document.getElementById('new-job-title').value;
+        const client = document.getElementById('new-job-client').value;
+        if (!title) return;
+        localJobs.push({ title, client });
+        document.getElementById('new-job-title').value = '';
+        document.getElementById('new-job-client').value = '';
+        document.getElementById('job-input-area').style.display = 'none';
+        saveJobs();
       }
 
-      function resetPomo() { 
-        clearInterval(pomoInterval); 
-        pomoTime = 25 * 60; 
-        pomoRunning = false; 
-        document.getElementById('pomo-display').innerText = "25:00"; 
-        document.getElementById('pomo-start').innerText = "▶"; 
+      function deleteJob(idx) { localJobs.splice(idx, 1); saveJobs(); }
+      function saveJobs() { localStorage.setItem(JOBS_KEY, JSON.stringify(localJobs)); renderJobsLocal(); }
+
+      function renderCallsLocal() {
+        const table = document.getElementById('call-table-local');
+        if (!table) return;
+        table.innerHTML = localCalls.length === 0 ? '<tr><td class="data-cell" style="color:#aaa; text-align:center; padding:40px;">Queue empty.</td></tr>' : 
+        localCalls.map((call, idx) => `<tr class="data-row"><td class="data-cell"><div style="display:flex; justify-content:space-between;"><div class="${call.done ? 'strikethrough' : ''}">📞 <b>${call.name}</b><br><small>${call.purpose}</small></div><div><button class="btn-action" onclick="toggleCall(${idx})">${call.done ? 'UNDO' : 'DONE'}</button><button class="btn-action btn-delete" onclick="deleteCall(${idx})">DEL</button></div></div></td></tr>`).join('');
       }
 
-      function updatePomoDisplay() {
-        const m = Math.floor(pomoTime / 60);
-        const s = pomoTime % 60;
-        const display = document.getElementById('pomo-display');
-        if(display) display.innerText = `${m}:${s < 10 ? '0' : ''}${s}`;
+      function triggerAddCall() {
+        const area = document.getElementById('call-input-area');
+        area.style.display = area.style.display === 'none' ? 'block' : 'none';
       }
 
-      /**
-       * DATA SYNC HANDSHAKE
-       */
+      function confirmAddCall() {
+        const name = document.getElementById('new-call-name').value;
+        const purpose = document.getElementById('new-call-purpose').value;
+        if (!name) return;
+        localCalls.push({ name, purpose, done: false });
+        document.getElementById('new-call-name').value = '';
+        document.getElementById('new-call-purpose').value = '';
+        document.getElementById('call-input-area').style.display = 'none';
+        saveCalls();
+      }
+
+      function toggleCall(idx) { localCalls[idx].done = !localCalls[idx].done; saveCalls(); }
+      function deleteCall(idx) { localCalls.splice(idx, 1); saveCalls(); }
+      function saveCalls() { localStorage.setItem(CALLS_KEY, JSON.stringify(localCalls)); renderCallsLocal(); }
+
       async function syncAll() {
-        const taskTable = document.getElementById('task-table');
-        const jobTable = document.getElementById('job-table');
-        const syncStatus = document.getElementById('status-sync');
-
-        if (!SCRIPT_URL || SCRIPT_URL === "") {
-          taskTable.innerHTML = '<tr class="data-row"><td class="data-cell">⚠️ Deployment URL missing. Set in CONFIG.</td></tr>';
-          return;
-        }
-
-        if(syncStatus) syncStatus.innerText = "● SYNCING...";
-
+        const table = document.getElementById('task-table');
+        if (!SCRIPT_URL) return;
         try {
           const resp = await fetch(`${SCRIPT_URL}?action=getIntegratedData`);
           const data = await resp.json();
-          
-          if (data.tasks) {
-            taskTable.innerHTML = data.tasks.map(t => `
-              <tr class="data-row">
-                <td class="data-cell">
-                  <span class="badge" style="background:${t.color}">${t.tag}</span> 
-                  <b style="margin-left:10px;">${t.title}</b>
-                </td>
-              </tr>
-            `).join('');
-          }
-
-          if (data.jobs && data.jobs.length > 0) {
-            jobTable.innerHTML = data.jobs.map(j => `
-              <tr class="data-row">
-                <td class="data-cell">
-                  <b style="font-size:14px;">${j.title}</b><br>
-                  <small style="color:var(--text-muted);">${j.client}</small>
-                </td>
-                <td class="data-cell" style="text-align:right;">
-                  <span class="badge" style="background:${j.color}">${j.badge}</span>
-                </td>
-              </tr>
-            `).join('');
-          } else {
-            jobTable.innerHTML = '<tr class="data-row"><td class="data-cell">No mandates found in ATS pipeline.</td></tr>';
-          }
-          if(syncStatus) syncStatus.innerText = "● LIVE";
-        } catch (e) {
-          console.error(e);
-          taskTable.innerHTML = '<tr class="data-row"><td class="data-cell">❌ Connectivity issue. Verify URL.</td></tr>';
-          if(syncStatus) syncStatus.innerText = "● ERROR";
-        }
+          if (data.tasks) table.innerHTML = data.tasks.map(t => `<tr class="data-row"><td class="data-cell"><span class="badge" style="background:${t.color}">${t.tag}</span> <b style="margin-left:10px;">${t.title}</b></td></tr>`).join('');
+        } catch (e) { table.innerHTML = '<tr><td class="data-cell">Offline.</td></tr>'; }
       }
 
-      function updateTally(k, v) { 
-        tallies[k] = Math.max(0, tallies[k] + v); 
-        const el = document.getElementById('val-' + k);
-        if(el) el.innerText = tallies[k]; 
+      function switchView(id, el) {
+        document.querySelectorAll('.view-section').forEach(v => v.style.display = 'none');
+        document.getElementById('view-' + id).style.display = 'grid';
+        if (el) { document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active')); el.classList.add('active'); }
       }
+
+      function updateGreeting() {
+        const hour = new Date().getHours();
+        const p = hour < 12 ? "Good Morning" : hour < 17 ? "Good Afternoon" : "Good Evening";
+        document.getElementById('greeting').innerText = `${p}, ${USER_NAME}`;
+      }
+
+      function toggleFocus() { isFocus = !isFocus; document.body.classList.toggle('focus-active', isFocus); }
+      function togglePomo() { if(pomoRunning) clearInterval(pomoInterval); else pomoInterval = setInterval(() => { pomoTime--; updatePomoDisplay(); if(pomoTime <= 0) resetPomo(); }, 1000); pomoRunning = !pomoRunning; }
+      function resetPomo() { clearInterval(pomoInterval); pomoTime = 25 * 60; pomoRunning = false; updatePomoDisplay(); }
+      function updatePomoDisplay() { const m = Math.floor(pomoTime / 60); const s = pomoTime % 60; document.getElementById('pomo-display').innerText = `${m}:${s < 10 ? '0' : ''}${s}`; }
+      function updateTally(k, v) { tallies[k] = Math.max(0, tallies[k] + v); document.getElementById('val-' + k).innerText = tallies[k]; }
 
       async function syncHabits() {
         const payload = {
@@ -1000,52 +534,19 @@
           walk: document.getElementById('check-walk').checked,
           sandhyavandana: document.getElementById('check-sandhyavandana').checked
         };
-        try {
-          await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
-          alert('Daily habits committed to Master DB.');
-        } catch(e) { alert('Sync Failed.'); }
+        try { await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) }); alert('Synced.'); } catch(e) { alert('Fail.'); }
       }
 
       async function saveDiary() {
-        const content = document.getElementById('diary-text').value;
-        if(!content) return;
-        try {
-          await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({type: 'diary_entry', content}) });
-          alert('Note Deliverd.'); 
-          document.getElementById('diary-text').value = '';
-        } catch(e) { alert('Delivery failed.'); }
+        const c = document.getElementById('diary-text').value; if(!c) return;
+        try { await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({type: 'diary_entry', content: c}) }); alert('Saved.'); document.getElementById('diary-text').value = ''; } catch(e) { alert('Fail.'); }
       }
 
-      function addCall() {
-        const n = prompt("Contact Name:"); 
-        if(!n) return;
-        const r = document.getElementById('call-table').insertRow(0);
-        r.className="data-row"; 
-        r.innerHTML=`<td class="data-cell">📞 ${n}</td>`;
-        fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({type: 'phone_call', content: n}) });
-      }
-
-      function saveConfig() { 
-        localStorage.setItem('RAVEONE_URL', document.getElementById('set-url').value); 
+      function saveConfig() {
+        localStorage.setItem('RAVEONE_URL', document.getElementById('set-url').value);
         localStorage.setItem('RAVEONE_USER_NAME', document.getElementById('set-name').value);
-        location.reload(); 
+        location.reload();
       }
-
-      function updateGreeting() {
-        const hour = new Date().getHours();
-        const g = document.getElementById('greeting');
-        let prefix = "Good Evening";
-        if(hour < 12) prefix = "Good Morning";
-        else if(hour < 17) prefix = "Good Afternoon";
-        
-        g.innerText = `${prefix}, ${USER_NAME}`;
-      }
-
-      window.addEventListener('keydown', (e) => {
-        if(e.altKey && e.key === 's') syncAll();
-        if(e.altKey && e.key === 'f') toggleFocus();
-        if(e.altKey && e.key === 'd') switchView('dashboard', null);
-      });
     </script>
   </body>
 </html>
